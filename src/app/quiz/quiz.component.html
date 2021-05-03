@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body" *ngIf="!enableQuiz">
+    <h5 class="card-title">welcome | {{!name? 'username': name}}</h5>
+    <div class="input-group mb-3">
+      <input *ngIf="!name" #nameValue class="form-control" placeholder="Enter your name"
+        (keyup.enter)="addName(nameValue.value)">
+    </div>
+    <hr>
+    <button class="btn btn-primary" [disabled]="!name" (click)="startQuiz()">start quiz</button>
+  </div>
+  <div class="card-body" *ngIf="!finish">
+    <ng-template [ngIf]="enableQuiz">
+      <h5 class="card-title blockquote">ques{{count+1}}: {{options[count]?.question}}</h5>
+      <div class="form-check" *ngFor="let option of options[count]?.optionsValue; index as i">
+        <input class="form-check-input" type="radio" name="Radio" (click)="sendingAnswer(option,i)">
+        <label class="form-check-label h5 display-5">
+          {{option}}
+        </label>
+      </div>
+      <button [disabled]="!selectedOption" class="btn btn-success btn-lg text-center"
+        (click)="nextQuestion();">Submit</button>
+    </ng-template>
+  </div>
+  <div class="finish-class" *ngIf="finish text-center">
+    <h3 class="text-danger">!finish- your score is {{score}}</h3>
+    <button class="btn btn-danger btn-lg" (click)="restart()">want to play again</button>
+  </div>
+</div>
